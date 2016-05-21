@@ -1,0 +1,44 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="kwc-select">
+  <template>
+    <style>
+      :host {
+        position: relative;
+      }
+
+      label {
+        display: block;
+        cursor: pointer;
+      }
+
+      #btn-select {
+        @apply(--kwc-select-button);
+      }
+
+      #select-box {
+        position: absolute;
+        left: 0;
+        @apply(--kwc-select-box);
+      }
+
+      #search {
+        width: 100%;
+        @apply(--kwc-select-search);
+      }
+    </style>
+
+    <button id="btn-select">[[_btnLabel]]</button>
+    <div id="select-box" hidden="[[!_opened]]">
+      <input type="search" id="search" value="{{_search::input}}" placeholder="[[searchPlaceholder]]">
+      <template is="dom-repeat" items="[[_elements]]" filter="[[_getFilter(_search)]]">
+        <label>
+          <input type="checkbox" value="[[item.value]]" checked="{{item.checked::change}}">
+          [[item.value]]
+        </label>
+      </template>
+    </div>
+  </template>
+
+  <script src="kwc-select.js" inline></script>
+</dom-module>

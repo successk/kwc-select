@@ -1,0 +1,29 @@
+{
+  "name": "kwc-select",
+  "version": "1.0.0",
+  "description": "Select box with search and single or multiple selection",
+  "license": "MIT",
+  "main": "kwc-select.html",
+  "keywords": [
+    "polymer",
+    "web-component",
+    "select-box"
+  ],
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "homepage": "https://github.com/successk/kwc-select",
+  "authors": [
+    "Gaëtan Rizio <gaetan@rizio.fr>"
+  ],
+  "devDependencies": {
+    "web-component-tester": "^4.2.2"
+  }
+}

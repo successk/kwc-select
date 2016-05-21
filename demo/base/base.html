@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>&lt;kwc-select&gt; – Base</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+
+  <link rel="import" href="../../kwc-select/kwc-select.html">
+
+  <style is="custom-style">
+    .example {
+      width: 1200px;
+      margin: auto;
+    }
+
+    .row {
+      display: flex;
+    }
+
+    .column {
+      width: 50%;
+      padding: 5px;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    kwc-select {
+      --kwc-select-button: {
+        width: 100%;
+        padding: 5px;
+        background-color: #fff;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      };
+
+      --kwc-select-box: {
+        background-color: white;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        z-index: 100;
+      };
+
+      --kwc-select-search: {
+        border: none;
+        outline: none;
+        padding: 5px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.65);
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="example">
+  <div class="row">
+    <div class="column right">
+      Select your native language:
+    </div>
+    <div class="column">
+      <kwc-select id="lang-native" search-placeholder="Search"></kwc-select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column right">
+      Select other languages you understand:
+    </div>
+    <div class="column">
+      <kwc-select id="lang-other" multiple search-placeholder="Search"></kwc-select>
+    </div>
+  </div>
+
+  <script>
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "lang.json", true);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        document.querySelector("#lang-native").setAttribute("items", xhr.responseText);
+        document.querySelector("#lang-other").setAttribute("items", xhr.responseText);
+      }
+    };
+    xhr.send();
+  </script>
+</div>
+</body>
+
+</html>

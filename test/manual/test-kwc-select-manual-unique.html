@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../kwc-select/kwc-select.html">
+  <style is="custom-style">
+    kwc-select {
+      display: inline-block;
+      width: 100px;
+
+      --kwc-select-button: {
+        border: 1px solid red;
+      };
+
+      --kwc-select-box: {
+        border: 1px solid blue;
+      };
+
+      --kwc-select-search: {
+        border: 1px solid green;
+      }
+    }
+  </style>
+</head>
+<body>
+<div>
+  <kwc-select id="select" search-placeholder="Filter language"></kwc-select>
+  <span id="selected"></span>
+</div>
+</div>
+
+<script src="test-kwc-select-manual-unique.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../bower_components/web-component-tester/browser.js"></script>
+  <link rel="import" href="../../kwc-select.html">
+</head>
+<body>
+<kwc-select id="select-initial-value" multiple></kwc-select>
+<kwc-select id="select-select-first" multiple></kwc-select>
+<kwc-select id="select-select-first-and-second" multiple></kwc-select>
+<kwc-select id="select-changed-label" multiple></kwc-select>
+<kwc-select id="select-no-value" multiple></kwc-select>
+
+<script>
+  suite("<kwc-select> multiple", function () {
+    test("initial-value", function (done) {
+      const select = document.querySelector("#select-initial-value");
+      select.setAttribute("items", JSON.stringify(["a", "b", "c", "d", "e"]));
+      flush(function () {
+        assert.deepEqual(JSON.parse(select.getAttribute("values")), []);
+        done();
+      });
+    });
+
+    test("select-first", function (done) {
+      const select = document.querySelector("#select-select-first");
+      select.setAttribute("items", JSON.stringify(["a", "b", "c", "d", "e"]));
+      flush(function(){
+        select.querySelector("input[type=checkbox]").click();
+        assert.deepEqual(JSON.parse(select.getAttribute("values")), ["a"]);
+        done();
+      });
+    });
+
+    test("select-first-and-second", function (done) {
+      const select = document.querySelector("#select-select-first-and-second");
+      select.setAttribute("items", JSON.stringify(["a", "b", "c", "d", "e"]));
+      flush(function(){
+        select.querySelectorAll("input[type=checkbox]")[0].click();
+        select.querySelectorAll("input[type=checkbox]")[1].click();
+        assert.deepEqual(JSON.parse(select.getAttribute("values")), ["a", "b"]);
+        done();
+      });
+    });
+
+    test("changed-label", function (done) {
+      const select = document.querySelector("#select-changed-label");
+      select.setAttribute("items", JSON.stringify(["a", "b", "c", "d", "e"]));
+      flush(function(){
+        select.querySelectorAll("input[type=checkbox]")[0].click();
+        select.querySelectorAll("input[type=checkbox]")[1].click();
+        assert.equal(select.querySelector("#btn-select").textContent, "a, b");
+        done();
+      });
+    });
+
+    test("no-value", function (done) {
+      const select = document.querySelector("#select-no-value");
+      select.setAttribute("items", JSON.stringify(["a", "b", "c", "d", "e"]));
+      flush(function(){
+        select.querySelectorAll("input[type=checkbox]")[0].click();
+        assert.equal(select.getAttribute("value"), null);
+        done();
+      });
+    });
+  });
+</script>
+</body>
+</html>
