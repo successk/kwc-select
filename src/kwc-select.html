@@ -34,7 +34,7 @@
       <template is="dom-repeat" items="[[_elements]]" filter="[[_getFilter(_search)]]">
         <label>
           <input type="checkbox" value="[[item.value]]" checked="{{item.checked::change}}">
-          [[item.value]]
+          [[item.label]]
         </label>
       </template>
     </div>

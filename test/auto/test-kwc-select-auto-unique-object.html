@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../bower_components/web-component-tester/browser.js"></script>
+  <link rel="import" href="../../kwc-select.html">
+</head>
+<body>
+<kwc-select id="select-initial-value"></kwc-select>
+<kwc-select id="select-select-first"></kwc-select>
+<kwc-select id="select-select-first-and-second"></kwc-select>
+<kwc-select id="select-changed-label"></kwc-select>
+<kwc-select id="select-no-values"></kwc-select>
+
+<script>
+  suite("<kwc-select> unique with objects", function () {
+    const items = JSON.stringify([
+      {
+        "value": "AD",
+        "label": "ANDORRE"
+      },
+      {
+        "value": "AE",
+        "label": "EMIRATS ARABES UNIS"
+      },
+      {
+        "value": "AF",
+        "label": "AFGHANISTAN"
+      },
+      {
+        "value": "AG",
+        "label": "ANTIGUA ET BARBUDA"
+      },
+      {
+        "value": "AI",
+        "label": "ANGUILLA"
+      }
+    ]);
+
+    test("initial-value", function () {
+      const select = document.querySelector("#select-initial-value");
+      select.setAttribute("items", items);
+      assert.equal(select.getAttribute("value"), null);
+    });
+
+    test("select-first", function (done) {
+      const select = document.querySelector("#select-select-first");
+      select.setAttribute("items", items);
+      flush(function(){
+        select.querySelector("input[type=checkbox]").click();
+        assert.equal(select.getAttribute("value"), "AD");
+        done();
+      });
+    });
+
+    test("select-first-and-second", function (done) {
+      const select = document.querySelector("#select-select-first-and-second");
+      select.setAttribute("items", items);
+      flush(function(){
+        select.querySelectorAll("input[type=checkbox]")[0].click();
+        select.querySelectorAll("input[type=checkbox]")[1].click();
+        assert.equal(select.getAttribute("value"), "AE");
+        done();
+      });
+    });
+
+    test("changed-label", function (done) {
+      const select = document.querySelector("#select-changed-label");
+      select.setAttribute("items", items);
+      flush(function(){
+        select.querySelectorAll("input[type=checkbox]")[0].click();
+        assert.equal(select.querySelector("#btn-select").textContent, "ANDORRE");
+        done();
+      });
+    });
+
+    test("no-values", function (done) {
+      const select = document.querySelector("#select-no-values");
+      select.setAttribute("items", items);
+      flush(function(){
+        select.querySelectorAll("input[type=checkbox]")[0].click();
+        assert.equal(select.getAttribute("values"), null);
+        done();
+      });
+    });
+  });
+</script>
+</body>
+</html>

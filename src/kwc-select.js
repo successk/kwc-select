@@ -76,10 +76,19 @@
       const selectedItems = this._elements ? this._elements.filter((e) => e.checked).map((e) => e.value) : [];
       this._elements = list
         .map((item) => {
-          return {
-            value: item,
-            checked: selectedItems.indexOf(item) >= 0
-          };
+          if (typeof item === "object") {
+            return {
+              label: item.label,
+              value: item.value,
+              checked: selectedItems.indexOf(item) >= 0
+            };
+          } else {
+            return {
+              label: item,
+              value: item,
+              checked: selectedItems.indexOf(item) >= 0
+            };
+          }
         });
     }
 
@@ -117,19 +126,23 @@
     }
 
     _computeBtnLabel(onEmptyPlaceholder, minManySelectedItem, manySelectedItemsPlaceholder, multiple, value, values) {
+      const getLabel = (v) => this.items
+        .filter(item => (typeof item === "object" ? item.value : item) === v)
+        .map(item => (typeof item === "object" ? item.label : item));
       if (multiple) {
         if (values && values.length) {
           if (values.length > minManySelectedItem) {
             return manySelectedItemsPlaceholder.replace(/\{n}/gi, values.length);
           } else {
-            return values.join(", ");
+            const labels = values.map(v => getLabel(v));
+            return labels.join(", ");
           }
         } else {
           return onEmptyPlaceholder;
         }
       } else {
         if (value !== null) {
-          return value;
+          return getLabel(value);
         } else {
           return onEmptyPlaceholder;
         }
